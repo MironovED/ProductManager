@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RepositoryTest {
     private Repository repo = new Repository();
-    private Product TShirt = new Product( 1, "Футболка", 101);
-    private Book HarryPotter = new Book( 12, "Гарри Потер", 211, "Дж. Роулинг");
-    private Smartphone IphoneX = new Smartphone(32, "IphoneX", 500 , "Apple");
+    private Product TShirt = new Product(1, "Футболка", 101);
+    private Book HarryPotter = new Book(12, "Гарри Потер", 211, "Дж. Роулинг");
+    private Smartphone IphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
 
     @Test
     void add3Product() {
@@ -84,21 +84,6 @@ class RepositoryTest {
 
         Product[] actual = repo.findAll();
         Product[] expected = {};
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    @Disabled
-    void shouldNotRemoveIfNotExists() {
-        repo.save(TShirt);
-        repo.save(HarryPotter);
-        repo.save(IphoneX);
-
-        repo.removeById(3);
-
-        Product[] actual = repo.findAll();
-        Product[] expected = {TShirt, HarryPotter, IphoneX};
 
         assertArrayEquals(expected, actual);
     }

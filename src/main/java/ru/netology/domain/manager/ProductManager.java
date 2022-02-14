@@ -3,6 +3,7 @@ package ru.netology.domain.manager;
 import ru.netology.domain.Product;
 import ru.netology.domain.repository.Repository;
 
+
 public class ProductManager {
     private Repository repository;
 
@@ -20,10 +21,13 @@ public class ProductManager {
         Product[] result = new Product[0];
         for (Product product : repository.findAll()) {
             if (matches(product, text)) {
+                Product[] tmp = {product};
+                result = tmp;
             }
         }
         return result;
     }
+
 
     public boolean matches(Product product, String search) {
         if (product.getName().contains(search)) {

@@ -9,11 +9,11 @@ import ru.netology.domain.repository.Repository;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
-        private Repository repo = new Repository();
-        ProductManager manager = new ProductManager(repo);
-        private Product TShirt = new Product( 1, "TShirt", 101);
-        private Book HarryPotter = new Book( 12, "HarryPotter", 211, "Дж. Роулинг");
-        private Smartphone IphoneX = new Smartphone(32, "IphoneX", 500 , "Apple");
+    private Repository repo = new Repository();
+    ProductManager manager = new ProductManager(repo);
+    private Product TShirt = new Product(1, "TShirt", 101);
+    private Book HarryPotter = new Book(12, "HarryPotter", 211, "Дж. Роулинг");
+    private Smartphone IphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
 
     @Test
     void add3Product() {
@@ -22,7 +22,7 @@ class ProductManagerTest {
         manager.add(IphoneX);
 
         Product[] actual = repo.findAll();
-        Product[] expected = { TShirt, HarryPotter, IphoneX };
+        Product[] expected = {TShirt, HarryPotter, IphoneX};
 
         assertArrayEquals(expected, actual);
     }
@@ -33,7 +33,7 @@ class ProductManagerTest {
         manager.add(HarryPotter);
 
         Product[] actual = repo.findAll();
-        Product[] expected = { TShirt, HarryPotter };
+        Product[] expected = {TShirt, HarryPotter};
 
         assertArrayEquals(expected, actual);
     }
@@ -43,7 +43,7 @@ class ProductManagerTest {
         manager.add(HarryPotter);
 
         Product[] actual = repo.findAll();
-        Product[] expected = { HarryPotter };
+        Product[] expected = {HarryPotter};
 
         assertArrayEquals(expected, actual);
     }
@@ -54,10 +54,22 @@ class ProductManagerTest {
         manager.add(HarryPotter);
         manager.add(IphoneX);
 
+
         Product[] actual = manager.searchBy("IphoneX");
         Product[] expected = {IphoneX};
 
-        assertEquals( expected, actual);
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByWhenInTheRepoOneProduct() {
+        manager.add(TShirt);
+
+
+        Product[] actual = manager.searchBy("TShirt");
+        Product[] expected = {TShirt};
+
+        assertArrayEquals(expected, actual);
     }
 
 }
