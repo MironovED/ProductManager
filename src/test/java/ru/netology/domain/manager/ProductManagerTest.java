@@ -4,70 +4,114 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
-import ru.netology.domain.repository.Repository;
+import ru.netology.manager.ProductManager;
+import ru.netology.repository.Repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
     private Repository repo = new Repository();
     ProductManager manager = new ProductManager(repo);
-    private Product TShirt = new Product(1, "TShirt", 101);
-    private Book HarryPotter = new Book(12, "HarryPotter", 211, "Дж. Роулинг");
-    private Smartphone IphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
+    private Product t_shirt = new Product(1, "TShirt", 101);
+    private Book harryPotter = new Book(12, "HarryPotter", 211, "Дж. Роулинг");
+    private Smartphone iphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
 
     @Test
     void add3Product() {
-        manager.add(TShirt);
-        manager.add(HarryPotter);
-        manager.add(IphoneX);
+        manager.add(t_shirt);
+        manager.add(harryPotter);
+        manager.add(iphoneX);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {TShirt, HarryPotter, IphoneX};
+        Product[] expected = {t_shirt, harryPotter, iphoneX};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void add2Product() {
-        manager.add(TShirt);
-        manager.add(HarryPotter);
+        manager.add(t_shirt);
+        manager.add(harryPotter);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {TShirt, HarryPotter};
+        Product[] expected = {t_shirt, harryPotter};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void add1Product() {
-        manager.add(HarryPotter);
+        manager.add(harryPotter);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {HarryPotter};
+        Product[] expected = {harryPotter};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void searchBy() {
-        manager.add(TShirt);
-        manager.add(HarryPotter);
-        manager.add(IphoneX);
+        manager.add(t_shirt);
+        manager.add(harryPotter);
+        manager.add(iphoneX);
 
 
         Product[] actual = manager.searchBy("IphoneX");
-        Product[] expected = {IphoneX};
+        Product[] expected = {iphoneX};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void searchByWhenInTheRepoOneProduct() {
-        manager.add(TShirt);
+        manager.add(t_shirt);
 
 
         Product[] actual = manager.searchBy("TShirt");
-        Product[] expected = {TShirt};
+        Product[] expected = {t_shirt};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByProductWhichIsNotOnTheList() {
+        manager.add(t_shirt);
+        manager.add(harryPotter);
+        manager.add(iphoneX);
+
+
+        Product[] actual = manager.searchBy("Oblivion");
+        Product[] expected = {};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByBookHarryPotter() {
+        manager.add(t_shirt);
+        manager.add(harryPotter);
+        manager.add(iphoneX);
+
+
+        Product[] actual = manager.searchBy("HarryPotter");
+        Product[] expected = {harryPotter};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByProductWhenTwoItemsMatchTheRequest() {
+        Smartphone iphone128Gb = new Smartphone(45, "Iphone13", 1000, "Apple");
+        Smartphone iphone256Gb = new Smartphone(46, "Iphone13", 2000, "Apple");
+        manager.add(t_shirt);
+        manager.add(harryPotter);
+        manager.add(iphone128Gb);
+        manager.add(iphoneX);
+        manager.add(iphone256Gb);
+
+
+        Product[] actual = manager.searchBy("Iphone13");
+        Product[] expected = {iphone128Gb, iphone256Gb};
 
         assertArrayEquals(expected, actual);
     }

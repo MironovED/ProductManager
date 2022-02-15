@@ -1,28 +1,27 @@
 package ru.netology.domain.repository;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
-import ru.netology.domain.manager.ProductManager;
+import ru.netology.repository.Repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RepositoryTest {
     private Repository repo = new Repository();
-    private Product TShirt = new Product(1, "Футболка", 101);
-    private Book HarryPotter = new Book(12, "Гарри Потер", 211, "Дж. Роулинг");
-    private Smartphone IphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
+    private Product t_shirt = new Product(1, "Футболка", 101);
+    private Book harryPotter = new Book(12, "Гарри Потер", 211, "Дж. Роулинг");
+    private Smartphone iphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
 
     @Test
     void add3Product() {
-        repo.save(TShirt);
-        repo.save(HarryPotter);
-        repo.save(IphoneX);
+        repo.save(t_shirt);
+        repo.save(harryPotter);
+        repo.save(iphoneX);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {TShirt, HarryPotter, IphoneX};
+        Product[] expected = {t_shirt, harryPotter, iphoneX};
 
         assertArrayEquals(expected, actual);
     }
@@ -30,21 +29,21 @@ class RepositoryTest {
     @Test
     void add2Product() {
         Repository repo = new Repository();
-        repo.save(TShirt);
-        repo.save(HarryPotter);
+        repo.save(t_shirt);
+        repo.save(harryPotter);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {TShirt, HarryPotter};
+        Product[] expected = {t_shirt, harryPotter};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void add1Product() {
-        repo.save(IphoneX);
+        repo.save(iphoneX);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {IphoneX};
+        Product[] expected = {iphoneX};
 
         assertArrayEquals(expected, actual);
     }
@@ -60,23 +59,23 @@ class RepositoryTest {
 
     @Test
     void removeById() {
-        repo.save(TShirt);
-        repo.save(HarryPotter);
-        repo.save(IphoneX);
+        repo.save(t_shirt);
+        repo.save(harryPotter);
+        repo.save(iphoneX);
 
         repo.removeById(12);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {TShirt, IphoneX};
+        Product[] expected = {t_shirt, iphoneX};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void removeByIdAll() {
-        repo.save(TShirt);
-        repo.save(HarryPotter);
-        repo.save(IphoneX);
+        repo.save(t_shirt);
+        repo.save(harryPotter);
+        repo.save(iphoneX);
 
         repo.removeById(12);
         repo.removeById(32);
