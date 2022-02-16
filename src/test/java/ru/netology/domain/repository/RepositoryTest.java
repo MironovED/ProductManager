@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
-import ru.netology.expection.NotFoundExpection;
+import ru.netology.exception.NotFoundException;
 import ru.netology.repository.Repository;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,7 +59,7 @@ class RepositoryTest {
     }
 
     @Test
-    void removeByIdAll() throws NotFoundExpection {
+    void removeByIdAll() throws NotFoundException {
         repo.save(shirt);
         repo.save(harryPotter);
         repo.save(iphoneX);
@@ -80,7 +80,7 @@ class RepositoryTest {
         repo.save(harryPotter);
         repo.save(iphoneX);
 
-        Assertions.assertThrows(NotFoundExpection.class, () -> repo.removeById(55));
+        Assertions.assertThrows(NotFoundException.class,()-> repo.removeById(77));
 
         Product[] actual = repo.findAll();
         Product[] expected = {shirt, harryPotter, iphoneX};
@@ -89,7 +89,7 @@ class RepositoryTest {
     }
 
     @Test
-    void removeByIdOneProd() throws NotFoundExpection {
+    void removeByIdOneProd() throws NotFoundException {
         repo.save(shirt);
         repo.save(harryPotter);
         repo.save(iphoneX);
