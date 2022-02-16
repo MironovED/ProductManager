@@ -12,29 +12,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductManagerTest {
     private Repository repo = new Repository();
     ProductManager manager = new ProductManager(repo);
-    private Product t_shirt = new Product(1, "TShirt", 101);
+    private Product shirt = new Product(1, "Shirt", 101);
     private Book harryPotter = new Book(12, "HarryPotter", 211, "Дж. Роулинг");
     private Smartphone iphoneX = new Smartphone(32, "IphoneX", 500, "Apple");
 
     @Test
     void add3Product() {
-        manager.add(t_shirt);
+        manager.add(shirt);
         manager.add(harryPotter);
         manager.add(iphoneX);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {t_shirt, harryPotter, iphoneX};
+        Product[] expected = {shirt, harryPotter, iphoneX};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void add2Product() {
-        manager.add(t_shirt);
+        manager.add(shirt);
         manager.add(harryPotter);
 
         Product[] actual = repo.findAll();
-        Product[] expected = {t_shirt, harryPotter};
+        Product[] expected = {shirt, harryPotter};
 
         assertArrayEquals(expected, actual);
     }
@@ -51,7 +51,7 @@ class ProductManagerTest {
 
     @Test
     void searchBy() {
-        manager.add(t_shirt);
+        manager.add(shirt);
         manager.add(harryPotter);
         manager.add(iphoneX);
 
@@ -64,18 +64,18 @@ class ProductManagerTest {
 
     @Test
     void searchByWhenInTheRepoOneProduct() {
-        manager.add(t_shirt);
+        manager.add(shirt);
 
 
-        Product[] actual = manager.searchBy("TShirt");
-        Product[] expected = {t_shirt};
+        Product[] actual = manager.searchBy("Shirt");
+        Product[] expected = {shirt};
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void searchByProductWhichIsNotOnTheList() {
-        manager.add(t_shirt);
+        manager.add(shirt);
         manager.add(harryPotter);
         manager.add(iphoneX);
 
@@ -88,7 +88,7 @@ class ProductManagerTest {
 
     @Test
     void searchByBookHarryPotter() {
-        manager.add(t_shirt);
+        manager.add(shirt);
         manager.add(harryPotter);
         manager.add(iphoneX);
 
@@ -103,7 +103,7 @@ class ProductManagerTest {
     void searchByProductWhenTwoItemsMatchTheRequest() {
         Smartphone iphone128Gb = new Smartphone(45, "Iphone13", 1000, "Apple");
         Smartphone iphone256Gb = new Smartphone(46, "Iphone13", 2000, "Apple");
-        manager.add(t_shirt);
+        manager.add(shirt);
         manager.add(harryPotter);
         manager.add(iphone128Gb);
         manager.add(iphoneX);
