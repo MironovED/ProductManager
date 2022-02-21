@@ -59,7 +59,7 @@ class RepositoryTest {
     }
 
     @Test
-    void removeByIdAll() throws NotFoundException {
+    void removeByIdAll() {
         repo.save(shirt);
         repo.save(harryPotter);
         repo.save(iphoneX);
@@ -81,15 +81,10 @@ class RepositoryTest {
         repo.save(iphoneX);
 
         Assertions.assertThrows(NotFoundException.class, () -> repo.removeById(66));
-
-//        Product[] actual = repo.findAll();
-//        Product[] expected = {shirt, harryPotter, iphoneX};
-//
-//        assertArrayEquals(expected, actual);
     }
 
     @Test
-    void removeByIdOneProd() throws NotFoundException {
+    void removeByIdOneProd() {
         repo.save(shirt);
         repo.save(harryPotter);
         repo.save(iphoneX);
@@ -101,7 +96,6 @@ class RepositoryTest {
 
         assertArrayEquals(expected, actual);
     }
-
 
 }
 
